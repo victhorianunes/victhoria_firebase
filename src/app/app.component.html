@@ -1,0 +1,30 @@
+<h1>{{ name }}</h1>
+
+<div *ngIf="!(authService.user | async)">
+  <form>
+    <fieldset>
+      <legend>Login</legend>
+      <div>Email</div>
+      <input type="text" name="email" [(ngModel)]="email" />
+      <div>Senha</div>
+      <input type="password" name="password" [(ngModel)]="password" />
+      <hr />
+      <button (click)="loginWithEmail()">Entrar com email</button> |
+      <button (click)="loginWithGoogle()">Entrar com Google</button>
+    </fieldset>
+  </form>
+</div>
+<div *ngIf="authService.authError" style="color: red">
+  {{ authService.authError }}
+</div>
+<div *ngIf="authService.user | async">
+  logado como <b>{{authService.currentUserEmail}}</b>
+  <button (click)="logout()">Sair</button>
+  <hr />
+  <div>
+    <a [routerLink]="['']">Início</a> |
+    <a [routerLink]="['firelist']">Lista do Firebase</a>
+  </div>
+  <hr />
+  <router-outlet> </router-outlet>
+</div>
